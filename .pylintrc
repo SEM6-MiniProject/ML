@@ -187,6 +187,8 @@ good-names=i,
            X,
            Y,
            e,
+           h,
+           pc,
            Run,
            _
 
@@ -335,7 +337,7 @@ indent-after-paren=4
 indent-string='    '
 
 # Maximum number of characters on a single line.
-max-line-length=200
+max-line-length=500
 
 # Maximum number of lines in a module.
 max-module-lines=1000
