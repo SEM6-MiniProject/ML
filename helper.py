@@ -169,6 +169,7 @@ def file_processing(filename):
             return text
 
     except Exception as e:
+        print("-->> ", e)
         print(e)
         text = "Error occurred during file processing!!"
 

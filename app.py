@@ -33,6 +33,7 @@ def predict_file():
     file_extension = file.filename.split(".")[-1]
     file_name = file.filename.split(".")[0]
     file.save(f"{file_name}.{file_extension}")
+    print(f"{file_name}.{file_extension}")
     prediction = file_processing(f"{file_name}.{file_extension}")
     if isinstance(prediction, str):
         return jsonify(prediction=prediction)
