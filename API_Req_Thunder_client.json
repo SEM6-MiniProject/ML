@@ -1,0 +1,53 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "ML_SEM6",
+    "dateExported": "2023-04-09T11:04:29.681Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "5546a520-e407-4509-a376-b2395ed1f6b9",
+            "colId": "ff9a1257-9166-41c1-b86e-335ed1baa754",
+            "containerId": "",
+            "name": "Prediction via input",
+            "url": "http://localhost:5000/predict",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-04-09T11:03:46.051Z",
+            "modified": "2023-04-09T11:03:46.051Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"Gender\": 1,\n  \"Hemoglobin\":14.9,\n  \"MCH\":22.7,\n  \"MCHC\":29.1,\n  \"MCV\":83.7\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "759b278d-6634-4dc8-98d9-274c74c45c58",
+            "colId": "ff9a1257-9166-41c1-b86e-335ed1baa754",
+            "containerId": "",
+            "name": "Prediction via file",
+            "url": "http://localhost:5000/predict_file",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-04-09T11:04:07.637Z",
+            "modified": "2023-04-09T11:04:07.637Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [],
+                "files": [
+                    {
+                        "name": "file",
+                        "value": "c:\\Users\\salman\\OneDrive\\Desktop\\SEM 6\\ML\\reports\\Mukesh.jpg"
+                    }
+                ]
+            },
+            "tests": []
+        }
+    ]
+}
