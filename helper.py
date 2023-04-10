@@ -107,10 +107,11 @@ def file_processing(filename):
 
         # Python-tesseract is a wrapper for Google’s Tesseract-OCR Engine. Here we connect with tesseract, which installed on system
 
-        pytesseract.pytesseract.tesseract_cmd = (
-            r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-        )
-
+        # pytesseract.pytesseract.tesseract_cmd = (
+        #     r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+        # )
+        # For docker image
+        pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
         # Passing image to ocr_processing function
 
         data = ocr_processing(filename)
