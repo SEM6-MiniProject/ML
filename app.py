@@ -48,7 +48,7 @@ def predict_file():
     to_predict = [float(i) for i in to_predict]
     to_predict = [to_predict]
     prediction = lod_pickle.predict(to_predict)
-    return jsonify(prediction=prediction.tolist()[0])
+    return jsonify(prediction=prediction.tolist()[0], data=req_data)
 
 
 if __name__ == "__main__":
