@@ -34,11 +34,23 @@ def insert_into_db(patient_data_dict):
     rdw = patient_data_dict["RDW"]
     tlc = patient_data_dict["TLC"]
     pc = patient_data_dict["Platelet_Count"]
-    try:
+    # check if table exists or not
+    cur.execute(
+        "SELECT count(name) FROM sqlite_master WHERE type='table' AND name='CITY_PATHOLOGY_LAB_FEVER_PANEL'"
+    )
+    if cur.fetchone()[0] == 1:
+        print("Table exists.")
+    else:
+        print("Table does not exist.")
         sql_query = "CREATE TABLE CITY_PATHOLOGY_LAB_FEVER_PANEL (Patient_Name varchar(100) NOT NULL,Hemoglobin varchar(100) NOT NULL,PCV varchar(100) NOT NULL,RBC varchar(100) NOT NULL,MCV varchar(100) NOT NULL,MCH varchar(100) NOT NULL,MCHC varchar(100) NOT NULL,RDW varchar(100) NOT NULL,TLC varchar(100) NOT NULL,Platelet_Count varchar(100) NOT NULL,status,username varchar(100) NOT NULL,dates varchar(100) NOT NULL)"
         cur.execute(sql_query)
-    except Exception as e:
-        print(e)
+
+    # try:
+    #     sql_query = "CREATE TABLE CITY_PATHOLOGY_LAB_FEVER_PANEL (Patient_Name varchar(100) NOT NULL,Hemoglobin varchar(100) NOT NULL,PCV varchar(100) NOT NULL,RBC varchar(100) NOT NULL,MCV varchar(100) NOT NULL,MCH varchar(100) NOT NULL,MCHC varchar(100) NOT NULL,RDW varchar(100) NOT NULL,TLC varchar(100) NOT NULL,Platelet_Count varchar(100) NOT NULL,status,username varchar(100) NOT NULL,dates varchar(100) NOT NULL)"
+    #     cur.execute(sql_query)
+    # except Exception as e:
+    #     print(e)
+    print("Table created successfully")
     if (
         (float(h) >= 14 and float(h) <= 18)
         and (float(pcv) >= 35 and float(pcv) <= 90)
