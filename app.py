@@ -12,7 +12,7 @@ def hello_world():
     return "Hello, World!"
 
 
-@app.route("/predict")
+@app.route("/predict",methods=["POST"])
 def predict():
     json = request.get_json()
     gender = json["Gender"]
