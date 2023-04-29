@@ -38,7 +38,7 @@ def predict_file():
     if isinstance(prediction, str):
         return jsonify(prediction=prediction)
     req_data = {
-        "gender": 1,
+        "gender": 1 if prediction['Gender'] == 'Male' else 0,
         "Hemoglobin": prediction["Hemoglobin"],
         "MCH": prediction["MCH"],
         "MCHC": prediction["MCHC"],

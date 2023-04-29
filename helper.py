@@ -43,7 +43,7 @@ def insert_into_db(patient_data_dict):
         print("Table exists.")
     else:
         print("Table does not exist.")
-        sql_query = "CREATE TABLE CITY_PATHOLOGY_LAB_FEVER_PANEL (Patient_Name varchar(100) NOT NULL,Hemoglobin varchar(100) NOT NULL,PCV varchar(100) NOT NULL,RBC varchar(100) NOT NULL,MCV varchar(100) NOT NULL,MCH varchar(100) NOT NULL,MCHC varchar(100) NOT NULL,RDW varchar(100) NOT NULL,TLC varchar(100) NOT NULL,Platelet_Count varchar(100) NOT NULL,status,username varchar(100) NOT NULL,dates varchar(100) NOT NULL)"
+        sql_query = "CREATE TABLE CITY_PATHOLOGY_LAB_FEVER_PANEL (Patient_Name varchar(100) NOT NULL,Hemoglobin varchar(100) NOT NULL,PCV varchar(100) NOT NULL,RBC varchar(100) NOT NULL,MCV varchar(100) NOT NULL,MCH varchar(100) NOT NULL,MCHC varchar(100) NOT NULL,RDW varchar(100) NOT NULL,TLC varchar(100) NOT NULL,Platelet_Count varchar(100) NOT NULL,status,username varchar(100) NOT NULL,dates varchar(100) NOT NULL,gender varchar(100) NOT NULL)"
         cur.execute(sql_query)
 
     # try:
@@ -93,7 +93,7 @@ def insert_into_db(patient_data_dict):
         or (float(tlc) < 4.5 or float(tlc) > 11)
         or (float(pc) < 150 or float(pc) > 450)
     ):
-        sql_query = "INSERT INTO CITY_PATHOLOGY_LAB_FEVER_PANEL (Patient_Name,Hemoglobin,PCV,RBC,MCV,MCH,MCHC,RDW,TLC,Platelet_Count,status,username,dates) VALUES (?,?,?,?,?,?,?,?,?,?,'accepted',?,DateTime('now'),?)"
+        sql_query = "INSERT INTO CITY_PATHOLOGY_LAB_FEVER_PANEL (Patient_Name,Hemoglobin,PCV,RBC,MCV,MCH,MCHC,RDW,TLC,Platelet_Count,status,username,dates,gender) VALUES (?,?,?,?,?,?,?,?,?,?,'accepted',?,DateTime('now'),?)"
         cur.execute(
             sql_query,
             (
@@ -108,7 +108,7 @@ def insert_into_db(patient_data_dict):
                 patient_data_dict["TLC"],
                 patient_data_dict["Platelet_Count"],
                 patient_data_dict["username"],
-                patient_data_dict["gender"]
+                patient_data_dict["Gender"]
             ),
         )
 
@@ -122,11 +122,11 @@ def file_processing(filename):
 
         # Python-tesseract is a wrapper for Google’s Tesseract-OCR Engine. Here we connect with tesseract, which installed on system
 
-        # pytesseract.pytesseract.tesseract_cmd = (
-        #     r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-        # )
+        pytesseract.pytesseract.tesseract_cmd = (
+            r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+        )
         # For docker image
-        pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
+        # pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
         # Passing image to ocr_processing function
 
         data = ocr_processing(filename)
