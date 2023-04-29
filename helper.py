@@ -33,7 +33,8 @@ def insert_into_db(patient_data_dict):
     mchc = patient_data_dict["MCHC"]
     rdw = patient_data_dict["RDW"]
     tlc = patient_data_dict["TLC"]
-    pc = patient_data_dict["Platelet_Count"]
+    pc = patient_data_dict["Platelet_Count"],
+    gender = patient_data_dict["Gender"]
     # check if table exists or not
     cur.execute(
         "SELECT count(name) FROM sqlite_master WHERE type='table' AND name='CITY_PATHOLOGY_LAB_FEVER_PANEL'"
@@ -62,7 +63,7 @@ def insert_into_db(patient_data_dict):
         and (float(tlc) >= 4.5 and float(tlc) <= 11)
         and (float(pc) >= 150 and float(pc) <= 450)
     ):
-        sql_query = "INSERT INTO CITY_PATHOLOGY_LAB_FEVER_PANEL (Patient_Name,Hemoglobin,PCV,RBC,MCV,MCH,MCHC,RDW,TLC,Platelet_Count,status,username,dates) VALUES (?,?,?,?,?,?,?,?,?,?,'rejected',?,DateTime('now'))"
+        sql_query = "INSERT INTO CITY_PATHOLOGY_LAB_FEVER_PANEL (Patient_Name,Hemoglobin,PCV,RBC,MCV,MCH,MCHC,RDW,TLC,Platelet_Count,status,username,dates,gender) VALUES (?,?,?,?,?,?,?,?,?,?,'rejected',?,DateTime('now'),?)"
         cur.execute(
             sql_query,
             (
@@ -77,6 +78,7 @@ def insert_into_db(patient_data_dict):
                 patient_data_dict["TLC"],
                 patient_data_dict["Platelet_Count"],
                 patient_data_dict["username"],
+                patient_data_dict["gender"]
             ),
         )
 
@@ -91,7 +93,7 @@ def insert_into_db(patient_data_dict):
         or (float(tlc) < 4.5 or float(tlc) > 11)
         or (float(pc) < 150 or float(pc) > 450)
     ):
-        sql_query = "INSERT INTO CITY_PATHOLOGY_LAB_FEVER_PANEL (Patient_Name,Hemoglobin,PCV,RBC,MCV,MCH,MCHC,RDW,TLC,Platelet_Count,status,username,dates) VALUES (?,?,?,?,?,?,?,?,?,?,'accepted',?,DateTime('now'))"
+        sql_query = "INSERT INTO CITY_PATHOLOGY_LAB_FEVER_PANEL (Patient_Name,Hemoglobin,PCV,RBC,MCV,MCH,MCHC,RDW,TLC,Platelet_Count,status,username,dates) VALUES (?,?,?,?,?,?,?,?,?,?,'accepted',?,DateTime('now'),?)"
         cur.execute(
             sql_query,
             (
@@ -106,6 +108,7 @@ def insert_into_db(patient_data_dict):
                 patient_data_dict["TLC"],
                 patient_data_dict["Platelet_Count"],
                 patient_data_dict["username"],
+                patient_data_dict["gender"]
             ),
         )
 
@@ -144,7 +147,7 @@ def file_processing(filename):
         # Check if the repory belongs to approved lab and test
 
         if (list_without_null_values[0] in configuration.approved_labs) and (
-            list_without_null_values[20].replace("Test Name : ", "")
+            list_without_null_values[21].replace("Test Name : ", "")
             in configuration.approved_tests
         ):
 
@@ -153,17 +156,18 @@ def file_processing(filename):
             default_dict = {
                 "Lab_Name": list_without_null_values[0],
                 "Patient_Name": list_without_null_values[4],
-                "Test_Name": list_without_null_values[20],
-                "Hemoglobin": list_without_null_values[27],
-                "PCV": list_without_null_values[31],
-                "RBC": list_without_null_values[35],
-                "MCV": list_without_null_values[39],
-                "MCH": list_without_null_values[43],
-                "MCHC": list_without_null_values[47],
-                "RDW": list_without_null_values[51],
-                "TLC": list_without_null_values[55],
-                "Platelet_Count": list_without_null_values[101],
-                "username": list_without_null_values[107],
+                "Gender": list_without_null_values[13],
+                "Test_Name": list_without_null_values[21],
+                "Hemoglobin": list_without_null_values[28],
+                "PCV": list_without_null_values[32],
+                "RBC": list_without_null_values[36],
+                "MCV": list_without_null_values[40],
+                "MCH": list_without_null_values[44],
+                "MCHC": list_without_null_values[48],
+                "RDW": list_without_null_values[52],
+                "TLC": list_without_null_values[56],
+                "Platelet_Count": list_without_null_values[102],
+                "username": list_without_null_values[108],
             }
 
             insert_into_db(default_dict)
